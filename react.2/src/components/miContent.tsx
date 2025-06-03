@@ -1,8 +1,9 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import MiCard from "./miCard";
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 import muiLogo from "../assets/logo.png";
+import Grid2 from "@mui/material/Grid";
 
 
 const cards = [
@@ -33,19 +34,26 @@ export default function MiContent() {
             Funcionalidades principales
         </Typography>
 
-        {/* Grid v2 (MUI 7) */}
-        <Grid
+        {/* Grid responsive */}
+        <Grid2
             container
             spacing={4}
             justifyContent="center"
             alignItems="stretch"
         >
             {cards.map((c) => (
-                <Grid key={c.id} xs={12} sm={6} md={4} sx={{ display: "flex" }}>
+                <Grid2
+                    item
+                    key={c.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    sx={{ display: "flex" }}
+                >
                     <MiCard {...c} />
-                </Grid>
+                </Grid2>
             ))}
-        </Grid>
+        </Grid2>
     </Container>
   );
 }
