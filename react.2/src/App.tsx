@@ -1,6 +1,7 @@
 import { CssBaseline, Container, Grid } from "@mui/material";
 import MiHero from "./components/miHero";
-import MiBar from "./components/MiBar";
+import MiBar from "./components/miBar";
+import MiContent from "./components/miContent";
 
 import './App.css'
 
