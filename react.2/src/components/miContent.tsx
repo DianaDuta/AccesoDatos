@@ -3,7 +3,7 @@ import MiCard from "./miCard";
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 import muiLogo from "../assets/logo.png";
-import Grid2 from "@mui/material/Grid";
+import Grid from "@mui/material/Grid";
 
 
 const cards = [
@@ -35,25 +35,22 @@ export default function MiContent() {
         </Typography>
 
         {/* Grid responsive */}
-        <Grid2
+        <Grid
             container
             spacing={4}
             justifyContent="center"
             alignItems="stretch"
         >
             {cards.map((c) => (
-                <Grid2
-                    item
+                <Grid
                     key={c.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
+                    size={{ xs: 12, sm: 6, md: 4 }}
                     sx={{ display: "flex" }}
                 >
                     <MiCard {...c} />
-                </Grid2>
+                </Grid>
             ))}
-        </Grid2>
+        </Grid>
     </Container>
   );
 }
