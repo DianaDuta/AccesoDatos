@@ -1,117 +1,83 @@
 
-
 import { useState } from 'react';
-import './App.css'
 import { Box, Container, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import useWeather from './hooks/useWeather';
+import './App.css';
 
-const API_WEATHER = `https://api.weatherapi.com/v1/current.json?key=${
-  import.meta.env.VITE_API_KEY
-}&q=`;
-console.log("LA KEY QUE LEE VITE →", import.meta.env.VITE_API_KEY);
+/**
+* Componente principal de la aplicación que muestra un formulario para buscar el clima
+* de una ciudad y muestra los resultados.
+*/
 
 function App() {
+
   /* --- --- --- ESTADO --- --- ---*/
-  const [ciudad, setCiudad] = useState("");
-  const [cargando, setCargando] = useState(false);
-  const [error, setError] = useState({error: false, message: ""});
-  const [clima, setClima] = useState({
-    ciudad: "",
-    pais: "",
-    temperatura: 0,
-    condicion: "",
-    icono: "",
-    textoCondicion: "",
-  });
+  const [input, setInput] = useState("");
+  const { weather, loading, error, fetchByCity } = useWeather();
 
   /* --- --- --- FUNCIONES --- --- ---*/
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCargando(true);
-    setError({ error: false, message: "" });
+    fetchByCity(input);
+  }
 
-    try {
-      if (!ciudad.trim()) throw { message: "El campo ciudad es obligatorio" };
-      
-      const respuesta = await fetch(API_WEATHER + encodeURIComponent(ciudad));
-      const datos = await respuesta.json();
-
-      if (datos.error) { throw { message: datos.error.message }};
-
-      setClima({
-        ciudad: datos.location.name,
-        pais: datos.location.country,
-        temperatura: datos.current.temp_c,
-        condicion: datos.current.condition.code,
-        icono: datos.current.condition.icon,
-        textoCondicion: datos.current.condition.text,
-      });
-    } catch (ex: any) {
-        setError({ error: true, message: ex.message || "Error al obtener el clima" }); 
-    } finally {
-      setCargando(false);
-    }
-  };
-
+  /* --- --- --- RENDERIZADO --- --- ---*/
   return (
     <Container maxWidth="xs" sx={{ mt: 4 }}>
       <Typography variant="h3" component="h1" align="center" gutterBottom>
-        El Tiempo
+        El Tiempo 2.0
       </Typography>
 
       {/* --- --- --- FORMULARIO --- --- ---*/}
-      <Box
-        component="form"
-        autoComplete="off"
-        onSubmit={onSubmit}
-        sx={{ display: "grid", gap: 2 }}
-      >
+      <Box component="form" onSubmit={onSubmit} sx={{ display: "grid", gap: 2 }}>
         <TextField
           label="Ciudad"
-          variant="outlined"
-          required
-          fullWidth
+          value={input}
           size="small"
-          value={ciudad}
-          onChange={(e) => setCiudad(e.target.value)}
-          error={error.error}
-          helperText={error.error ? error.message : ""}
+          fullWidth
+          required
+          error={Boolean(error)}
+          helperText={error ?? ""}
+          onChange={(e) => setInput(e.target.value)}
         />
-          <LoadingButton
+
+        <LoadingButton
           type="submit"
           variant="contained"
-          loading={cargando}
-          loadingIndicator="Cargando..."
+          loading={loading}
+          loadingIndicator="Buscando…"
         >
           Buscar
         </LoadingButton>
       </Box>
 
       {/* --- --- --- RESULTADO --- --- ---*/}
-      {clima.ciudad && (
+       {weather && (
         <Box
-            sx={{
+          sx={{
             mt: 4,
             display: "grid",
             gap: 2,
             textAlign: "center",
-            borderRadius: 2,
             p: 3,
+            borderRadius: 2,
             boxShadow: 3,
           }}
         >
           <Typography variant="h4">
-            {clima.ciudad}, {clima.pais}
+            {weather.city}, {weather.country}
           </Typography>
-            <Box
+
+          <Box
             component="img"
-            alt={clima.textoCondicion}
-            src={clima.icono}
-            sx={{ margin: "0 auto", width: 96, height: 96 }}
+            src={weather.icon}
+            alt={weather.conditionText}
+            sx={{ width: 96, height: 96, m: "0 auto" }}
           />
 
-          <Typography variant="h2">{clima.temperatura}ºC</Typography>
-          <Typography variant="h5">{clima.textoCondicion}</Typography>
+          <Typography variant="h2">{weather.temp} ºC</Typography>
+          <Typography variant="h5">{weather.conditionText}</Typography>
         </Box>
       )}
     </Container>
