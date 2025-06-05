@@ -3,9 +3,11 @@ import { Container, Typography, Alert } from "@mui/material";
 import DogForm from "../components/DogForm";
 import DogCard from "../components/DogCard";
 import Grid from "@mui/material/Grid";
+
+// Definimos la interfaz para la respuesta de la API
 interface APIResponse {
-  message: string[]; // array de URLs
-  status: "success" | "error";
+    message: string[]; // array de URLs
+    status: "success" | "error";
 }
 
 export default function DogsPage() {
@@ -19,10 +21,10 @@ export default function DogsPage() {
         setError(null);
         setImgs([]);
         try {
-            const res = await fetch(
+            const respuesta = await fetch(
             `https://dog.ceo/api/breed/${breed}/images/random/3`
             );
-            const data: APIResponse = await res.json();
+            const data: APIResponse = await respuesta.json();
 
             if (data.status === "success") {
                 setImgs(data.message);
@@ -46,7 +48,7 @@ export default function DogsPage() {
 
             {error && (
                 <Alert severity="error" sx={{ mt: 4, maxWidth: 400, mx: "auto" }}>
-                {error}
+                    {error}
                 </Alert>
             )}
 
