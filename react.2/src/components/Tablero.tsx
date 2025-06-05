@@ -20,7 +20,7 @@ export default function Tablero() {
 
     const comprobarGanador = (next: Casilla[]) => {
         for (const [a, b, c] of lineas)
-        if (next[a] && next[a] === next[b] && next[a] === next[c]) return next[a];
+        if (next[a] && (next[a] === next[b]) && (next[a] === next[c])) return next[a];
         return null;
     };
 
