@@ -48,8 +48,8 @@ export default function Tablero() {
         <Stack
             spacing={2}
             p={2}
-            border={1}
-            borderColor="plum"
+            //border={1}
+            //borderColor="plum"
             maxWidth={370}
             mx="auto"
         >
