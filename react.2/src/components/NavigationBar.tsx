@@ -15,12 +15,12 @@ function NavigationBar() {
         <Toolbar>
           <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }}>
             <Button component={RouterLink} to="/home" color="inherit">Home</Button>
-            <Button component={RouterLink} to="/about" color="inherit">Informacion</Button>
-            <Button component={RouterLink} to="/register" color="inherit">Registro</Button>
-            <Button component={RouterLink} to="/summary" color="inherit">Resumen</Button>
+            <Button component={RouterLink} to="/informacion" color="inherit">Informacion</Button>
+            <Button component={RouterLink} to="/registro" color="inherit">Registro</Button>
+            <Button component={RouterLink} to="/resumen" color="inherit">Resumen</Button>
           </Stack>
 
-          {/* Botón modo oscuro / claro */}
+          {/* Botón modo oscuro / claro porque para las pruebas prefería oscuro jeje*/}
           <Tooltip title="Toggle theme">
             <IconButton color="inherit" onClick={alternar}>
               {palette.mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
