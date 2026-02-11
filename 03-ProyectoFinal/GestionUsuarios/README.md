@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# Gestión de Usuarios & Tema Dinámico
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Proyecto Final de ejercicios React**
+> Aplicación SPA (Single Page Application) desarrollada con **React, TypeScript y Material UI** que implementa una arquitectura basada en **Contextos Globales** para la gestión de estado y preferencias de usuario.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-19-blue?logo=react&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&style=for-the-badge)
+![MUI](https://img.shields.io/badge/MUI-Material--UI-007FFF?logo=mui&style=for-the-badge)
+![Vite](https://img.shields.io/badge/Vite-Build-646CFF?logo=vite&style=for-the-badge)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Características Principales
 
-## Expanding the ESLint configuration
+Este proyecto consolida conocimientos avanzados de React, evitando el *prop-drilling* y mejorando la escalabilidad:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Gestión de Estado Global (Context API)
+* **Usuario (`UserProvider`):** Permite compartir los datos de sesión (Nombre, Email, Edad) entre componentes distantes (`Registro.tsx` ➔ `Resumen.tsx`) sin pasar props manualmente.
+* **Tema (`ColorModeProvider`):** Control global del modo **Oscuro / Claro** (Dark/Light Mode) que persiste en toda la aplicación y adapta automáticamente los colores de Material UI.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 2. Navegación SPA (React Router v7)
+* Sistema de rutas declarativo con `react-router-dom`.
+* Redirección automática (`<Navigate />`) de la raíz `/` a `/home`.
+* Página 404 personalizada para rutas no existentes.
+* Navegación fluida sin recargas de página mediante componentes `Link`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Formularios y UI Moderna
+* **FormData:** Captura eficiente de datos de formularios no controlados en la página de Registro.
+* **Material UI v7:** Uso intensivo de componentes pre-estilizados (`AppBar`, `TextField`, `Stack`, `Card`) y sistema de diseño responsivo.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Estructura del Código
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+La arquitectura sigue el principio de separación de responsabilidades:
+
+```text
+/
+├── public/              # Assets estáticos (vite.svg)
+├── src/
+│   ├── components/
+│   │   └── NavigationBar.tsx  # Barra de navegación con botón de cambio de tema
+│   ├── context/
+│   │   └── usuario.tsx        # Contexto y Hook (useUsuario) para datos de sesión
+│   ├── pages/
+│   │   ├── Home.tsx           # Página de bienvenida
+│   │   ├── Informacion.tsx    # Detalles del proyecto
+│   │   ├── Registro.tsx       # Formulario con validación y guardado en Contexto
+│   │   └── Resumen.tsx        # Visualización de datos leídos del Contexto
+│   ├── theme/
+│   │   └── ColorModeProvider.tsx # Lógica del Dark/Light Mode y ThemeProvider
+│   ├── App.tsx          # Configuración de Providers y Rutas
+│   ├── main.tsx         # Punto de entrada (Renderizado del Root)
+│   └── index.css        # Estilos globales y reset
+├── index.html
+├── package.json
+└── tsconfig.json
