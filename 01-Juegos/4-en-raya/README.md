@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+#  JUEGO: 4 en raya
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Juego de estrategia clásica implementado en una cuadrícula de 4x4 utilizando React y Material UI.
 
-Currently, two official plugins are available:
+Este proyecto es una variación más compleja del clásico "Tres en Raya", donde el objetivo es alinear 4 fichas en un tablero de 16 casillas.
+Fue una propuesta del profesor para aumentar un poco la dificultad de la logica.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![MUI](https://img.shields.io/badge/MUI-Material--UI-007FFF?logo=mui)
 
-## Expanding the ESLint configuration
+## Características
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Tablero 3x3:** Cuadrícula interactiva de 12 celdas.
+* **Gestión de Turnos:** Alternancia automática entre Jugador 1 (O) y Jugador 2 (X).
+* **Detección de Victoria:** Algoritmo que verifica en tiempo real las combinaciones ganadoras posibles (filas, columnas y diagonales).
+* **Interfaz Moderna:** Componentes visuales estilizados con **Material UI** (Paper, Icons, Stacks).
+* **Reinicio:** Botón para resetear el estado del juego sin recargar la página.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Tecnologías Utilizadas
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* **React Hooks:** Uso intensivo de `useState` para controlar el array del tablero (`Array(12)`), el turno actual y el estado del ganador.
+* **TypeScript:** Tipado estricto para las props de los componentes y estados (`"X" | "O" | null`).
+* **Material UI:**
+    * `Grid` / `Box`: Para el layout CSS Grid del tablero.
+    * `Paper` & `IconButton`: Para la estética de las casillas.
+    * `Icons`: `CloseIcon` (X) y `RadioButtonUncheckedIcon` (O).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Estructura del Código
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+```text
+/
+├── src/
+│   ├── components/
+│   │   ├── Casilla.tsx       # Componente UI: Renderiza la celda y el icono (X/O)
+│   │   └── Tablero.tsx       # Lógica: Estado del juego, algoritmo de victoria y Grid
+│   ├── App.tsx               # Layout principal (MUI Box + CssBaseline)
+│   ├── main.tsx              # Punto de entrada de la aplicación
+│   └── index.css             # Estilos globales y reset
+├── package.json
+└── tsconfig.json
+
+## Ejecución
+
+1.  Debes estar en la carpeta del proyecto.
+2.  Instala las dependencias:
+    ```bash
+    npm install
+    ```
+3.  Ejecuta el servidor de desarrollo:
+    ```bash
+    npm run dev
+    ```
