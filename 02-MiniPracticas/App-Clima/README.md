@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# App Clima
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Aplicación de consulta meteorológica en tiempo real que consume la API de WeatherAPI.com, implementada con TypeScript y Material UI.
 
-Currently, two official plugins are available:
+Este proyecto demuestra el manejo de **peticiones asíncronas (Fetch API)**, la gestión de estados complejos mediante **Custom Hooks** y el uso seguro de **variables de entorno**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![MUI](https://img.shields.io/badge/MUI-Material--UI-007FFF?logo=mui)
+![Vite](https://img.shields.io/badge/Vite-Build-646CFF?logo=vite)
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Búsqueda en Tiempo Real:** Consulta el clima actual de cualquier ciudad del mundo.
+* **Gestión de Estados de Carga:** Feedback visual (`LoadingButton`) mientras se realiza la petición.
+* **Manejo de Errores:** Visualización de mensajes de error en el input si la ciudad no existe o la API falla.
+* **Diseño Responsivo:** Interfaz limpia y centrada utilizando componentes de Material UI.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Tecnologías y Conceptos
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* **Custom Hook (`useWeather`):** Abstracción de la lógica de negocio. Maneja el ciclo de vida de la petición API, el estado `loading`, `error` y los datos del clima.
+* **Variables de Entorno:** Uso de `.env` y `import.meta.env` para proteger la API Key.
+* **Material UI:** Uso de `TextField`, `LoadingButton` y `Typography` para una UI rápida y estética.
+* **Async/Await:** Gestión moderna de promesas para el consumo de datos.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Estructura del Código
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+```text
+/
+├── src/
+│   ├── hooks/
+│   │   └── useWeather.ts     # Lógica Core: Fetch a la API y gestión de estado
+│   ├── App.tsx               # UI Principal: Formulario y tarjeta de resultados
+│   ├── main.tsx              # Punto de entrada
+│   └── index.css             # Estilos globales
+├── .env                      # (No incluido en repo) Configuración de API Key
+├── package.json
+└── tsconfig.json
+
+## Instalación y Configuración
+
+Para ejecutar este proyecto en local, necesitarás una API Key gratuita de [WeatherAPI.com](https://www.weatherapi.com/).
+
+Sigue estos pasos:
+
+1.  **Clonar el repositorio y entrar en la carpeta:**
+    *(Si ya tienes el repositorio clonado, ve al paso 2)*.
+
+2.  **Instalar las dependencias:**
+    Asegúrate de estar dentro de la carpeta `02-MiniPracticas/App-Clima` y ejecuta:
+    ```bash
+    npm install
+    ```
+
+3.  **Configurar la API Key:**
+    El proyecto utiliza variables de entorno para proteger las credenciales.
+    * Crea un archivo llamado `.env` en la raíz de esta carpeta (`App-Clima`).
+    * Añade la siguiente línea dentro del archivo, pegando tu clave de WeatherAPI:
+
+    ```env
+    VITE_API_KEY=tu_clave_api_aqui_sin_comillas
+    ```
+
+    > **Nota:** El nombre de la variable debe ser exactamente `VITE_API_KEY` para que Vite la reconozca.
+
+4.  **Ejecutar el servidor de desarrollo:**
+    ```bash
+    npm run dev
+    ```
+
+5.  **Abrir en el navegador:**
+    Haz clic en el enlace que aparece en la terminal.
