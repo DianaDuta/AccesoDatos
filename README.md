@@ -39,11 +39,11 @@ Aplicación SPA avanzada que consolida patrones de diseño para aplicaciones esc
 
 ## Instrucciones de Ejecución
 
-Este repositorio es un **monorepo**. Cada carpeta es un proyecto independiente con sus propias dependencias.
+Este repositorio es un **monorepo**. Cada carpeta es un proyecto independiente con sus propias dependencias. Por ejemplo:
 
 1. **Navegar a la carpeta del proyecto:**
    ```bash
-   cd 03-ProyectoFinal/Gestion-Usuarios-Tema
+   cd 03-ProyectoFinal/GestionUsuarios
 2. **Instalar dependencias:**
    ```bash
    npm install
