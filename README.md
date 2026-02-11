@@ -8,33 +8,34 @@
 
 ## Arquitectura del Repositorio
 
-### [03-ProyectoFinal](./03-ProyectoFinal)
-Aplicación avanzada que implementa una arquitectura escalable basada en Contextos.
-
-* **[Gestion-Usuarios-Tema](./03-ProyectoFinal/Gestion-Usuarios-Tema):**
-  * **Gestión de Estado Global:** Uso de `UserProvider` para la sesión y `ColorModeProvider` para el tema (Dark/Light Mode), evitando el *prop-drilling*.
-  * **Enrutamiento:** Navegación protegida y estructurada con `react-router-dom`.
-  * **Clean Architecture:** Separación clara entre lógica (`context`), UI (`components/pages`) y estilos (`theme`).
+### [01-Juegos](./01-Juegos)
+Desarrollo de lógica algorítmica y matrices de estado.
+* **4 en Raya:** Algoritmo de detección de victoria en matriz bidimensional.
+* **3 en Raya:** juego clásico de estrategia.
 
 ### [02-MiniPracticas](./02-MiniPracticas)
 Ejercicios focalizados en funcionalidades específicas de aplicaciones web.
 
-* **[App-Gestion-Datos](./02-MiniPracticas/App-Gestion-Datos):** (CRUD)
-  * Gestión completa de registros (Crear, Leer, Actualizar, Borrar).
-  * Consumo de servicios asíncronos con Axios.
+* **[App-Gestion-Datos](./02-MiniPracticas/Dog-API):**
+Buscador de imágenes por raza utilizando la API de Dog CEO.
+  
 
 * **[App-Clima](./02-MiniPracticas/App-Clima):**
-  * Consumo de APIs externas (OpenWeather) y manejo de promesas.
+Aplicación meteorológica basada en un Custom Hook (useWeather) para abstraer la lógica de la API de WeatherAPI
 
-* **[Login-Basico](./02-MiniPracticas/Login-Basico):**
-  * Lógica de formularios controlados y validación condicional.
+### [03-ProyectoFinal](./03-ProyectoFinal)
+Aplicación SPA avanzada que consolida patrones de diseño para aplicaciones escalables, eliminando el *prop-drilling* y optimizando la experiencia de usuario.
 
-### [01-Juegos](./01-Juegos)
-Desarrollo de lógica algorítmica y matrices de estado.
-* **4 en Raya:** Algoritmo de detección de victoria en matriz bidimensional.
-* **3 en Raya:** Gestión de historial de movimientos (Time Travel).
+* **Gestión de Estado Global (Context API):**
+    * **`UserProvider`**: Persistencia de datos de sesión (Nombre, Email, Edad) compartidos entre componentes distantes.
+    * **`ColorModeProvider`**: Control global de **Modo Oscuro / Claro** que adapta automáticamente toda la interfaz de Material UI.
+* **Navegación SPA (React Router v7):**
+    * Estructura de rutas declarativa con redirecciones inteligentes (`<Navigate />`) y gestión de errores 404.
+* **Arquitectura y UI:**
+    * Implementación de **Material UI v7** con captura de datos mediante `FormData`.
+    * Separación estricta de responsabilidades: lógica de estado en `/context`, tematización en `/theme` y vistas en `/pages`.
 
----
+----------
 
 ## Instrucciones de Ejecución
 
@@ -43,3 +44,9 @@ Este repositorio es un **monorepo**. Cada carpeta es un proyecto independiente c
 1. **Navegar a la carpeta del proyecto:**
    ```bash
    cd 03-ProyectoFinal/Gestion-Usuarios-Tema
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+3. **Ejecutar:**
+   ```bash
+   npm run dev
